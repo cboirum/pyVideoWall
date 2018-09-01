@@ -1,0 +1,14 @@
+#Clients:
+#0
+#Starting Port:
+#6000
+#Ports:
+#10
+#fileName:
+#galaxie.jpg
+
+Clients = 0
+Ports = 10
+StartingPort = 6000
+#ModelFile = galaxie.jpg
+ModelFile = world.jpg

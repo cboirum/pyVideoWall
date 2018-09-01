@@ -1,0 +1,1425 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html>
+<head>
+	<title>Simple HTTP Server and Client in Python - CodeProject</title> 
+	<link type="text/css" rel="stylesheet" href="/App_Themes/CodeProject/Css/Main.min.css?dt=2.6.130714.1">
+
+	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Description" content="This time I&#39;d like to show you how to make a simple HTTP server and client in python. It&#39;s a bit different from other tutorials I&#39;ve ever wrote and I&#39;d like to say that I&#39;m also a beginner in python. But, I&#39;ll try to make sure you understand what I wrote because this tutorial is easy.First, you need; Author: Junian Triajianto; Updated: 21 Sep 2012; Section: Internet / Network; Chapter: General Programming; Updated: 21 Sep 2012" />
+<meta name="Keywords" content="Python,Internet / Network,General Programming,Free source code, tutorials" />
+<meta name="Author" content="Junian Triajianto" />
+<meta name="Rating" content="General" />
+<meta name="Robots" content="index, follow, NOODP" />
+<meta name="Revisit-After" content="1 days" />
+<meta name="application-name" content="CodeProject" />
+
+<meta name="msapplication-navbutton-color" content="#FF9900" />
+<meta name="msapplication-tooltip" content="Your Development Resource." />
+<meta name="msapplication-starturl" content="http://www.codeproject.com/?pinned=true" />
+<meta name="msapplication-task" content="name=Homepage;action-uri=http://www.codeproject.com/;icon-uri=http://www.codeproject.com/favico.ico" />
+<meta name="msapplication-task" content="name=Latest Articles;action-uri=http://www.codeproject.com/script/articles/Latest.aspx;icon-uri=http://www.codeproject.com/favico.ico" />
+<meta name="msapplication-task" content="name=Questions and Answers;action-uri=http://www.codeproject.com/script/Answers/;icon-uri=http://www.codeproject.com/favico.ico" />
+<meta name="msapplication-task" content="name=The Lounge;action-uri=http://www.codeproject.com/Lounge.aspx;icon-uri=http://www.codeproject.com/favico.ico" />
+
+<link rel="dns-prefetch" href="//ajax.googleapis.com" /> 
+<link rel="canonical" href="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python" />
+<meta name="syndication-source" content="http://kodefun.junian.net/2011/11/simple-http-server-and-client-in-python.html">
+
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - All Topics" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=1" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - MFC/C++" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=2" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - C#" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=3" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - VB.NET" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=6" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - Mobile" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=18" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - ASP.NET" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=4" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Lounge Postings" href="http://www.codeproject.com/webservices/LoungeRSS.aspx" />
+<link rel="search" type="application/opensearchdescription+xml" title="CodeProject" href="http://www.codeproject.com/info/OpenSearch.xml" />
+
+	<base target="_top" />
+	<link rel="icon" href="/favicon.ico" type="image/ico" >
+<link rel="shortcut icon" href="/favicon.ico"  type="image/ico" >
+<link rel="apple-touch-icon" href="/images/FavIcon-Apple.png" type="image/png" >
+<script type="text/javascript" language="Javascript">//<![CDATA[
+function defrm () { /* thanks twitter */ document.write = ''; window.top.location = window.self.location;  setTimeout(function() { document.body.innerHTML = ''; }, 0);  window.self.onload = function(evt) { document.body.innerHTML = ''; }; }if (window.top !== window.self) {  try {  if (window.top.location.host) { /* will throw */ } else { defrm(); /* chrome */ }  } catch (ex) { defrm(); /* everyone else */ } }if (typeof(DemoUrl)!='undefined')   document.write(unescape('%3Cme')+'ta http'+'-equiv="re'+'fresh"                  con'+'tent="1;url='+DemoUrl+unescape('"%3CE'));
+function _dmBootstrap(file) { var _dma = document.createElement('script');  _dma.type = 'text/javascript'; _dma.async = true;  _dma.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + file; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(_dma);}
+function _dmFollowup(file) { if (typeof DMAds === 'undefined')  _dmBootstrap('cdn2.developermedia.com/a.min.js?dt=2.6.130714.1');}
+(function () { _dmBootstrap('cdn1.developermedia.com/a.min.js?dt=2.6.130714.1'); setTimeout(_dmFollowup, 2000);})();
+
+//]]>
+</script>
+
+	
+<script type="text/javascript">
+  var _comscore = _comscore || [];
+  _comscore.push({ c1: "2", c2: "13507173" });
+  (function() {
+	var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+	s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+	el.parentNode.insertBefore(s, el);
+  })();
+</script>
+<noscript>
+  <img src="http://b.scorecardresearch.com/p?c1=2&c2=13507173&cv=2.0&cj=1" id="ctl00_Auditing_ComScore" />
+</noscript>
+
+
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-1735123-1']);
+	_gaq.push(['_trackPageview']);
+	_gaq.push(['_setDomainName', 'www.codeproject.com']);
+	_gaq.push(['_setSessionTimeout', '1200']); 
+
+	(function () {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})(); 
+</script>
+
+
+</head>	
+
+<body class="chrome chrome28">
+
+<a href="#Main"><img alt="Click here to Skip to main content" class="access-link" src="/Images/t.gif" /></a>
+
+
+
+
+
+<div class="page-background">
+
+	
+	
+
+	
+
+	<table id="ctl00_Bn" style="width:100%;height:135px" cellpadding="0" cellspacing="0" class="banner fixed">
+	<tr valign="bottom">
+		<td class="blank-background" style="height:31px">&nbsp;</td>
+		<td class="blank-background" rowspan="3" style="width:250px;height:135px"><a href="/"><img id="ctl00_Logo" tabindex="1" title="CodeProject" src="/App_Themes/CodeProject/Img/logo250x135.gif" alt="Home" style="height:135px;width:250px;border-width:0px;" /></a></td>
+		<td class="blank-background align-right" style="width:728px;height:31px">
+
+<div class="container memberbar clearfix">
+
+	<div id="ctl00_MemberMenu_GenInfo" class="float-left">9,971,834 members (54,860 online) &nbsp; &nbsp; </div>
+
+	<div class="float-left">
+		
+	</div>
+
+	<div class="float-right">
+
+		<span id="ctl00_MemberMenu_CodeProjectTV" class="tooltip" style="margin-right:15px;">
+			<a href="http://CodeProject.TV"><img src="/images/CPTV-16.gif" 
+				width="16px" height="16px" style="vertical-align:middle;border:0"></a>
+			<div class="speech-bubble-container-up" style="width:180px;line-height:20px">
+				<div class="speech-bubble-up">
+					<b><a href="http://codeproject.TV">Visit CodeProject.TV</a><br />
+					<a id="ctl00_MemberMenu_DiscussCPTV" href="/Forums/1829610/CodeProject-TV.aspx">Discuss CodeProject.TV</a></b>
+				</div>
+				<div class="speech-bubble-pointer-up">
+					<div class="speech-bubble-pointer-up-inner"></div>
+				</div>
+			</div>
+		</span>
+
+		
+
+		
+
+		
+
+			<script type="text/javascript">//<!--
+			function doSubmit(secure)
+			{
+				if (secure)
+					document.subForm.action = "https://www.codeproject.com/script/Membership/LogOn.aspx?rp=%2fArticles%2f462525%2fSimple-HTTP-Server-and-Client-in-Python"
+				else
+					document.subForm.action = "https://www.codeproject.com/script/Membership/LogOn.aspx?rp=%2fArticles%2f462525%2fSimple-HTTP-Server-and-Client-in-Python"
+				document.subForm.submit();
+				return true;
+			}//-->
+			</script>
+
+			<a name="SignUp"></a>
+			<span class="member-signin tooltip openable">
+				<span><a href="https://www.codeproject.com/script/Membership/LogOn.aspx?rp=%2fArticles%2f462525%2fSimple-HTTP-Server-and-Client-in-Python">Sign in</a></span>
+
+				<div class="tooltip-flyout">
+					<form name="subForm" id="subForm" action="https://www.codeproject.com/script/Membership/LogOn.aspx?rp=%2fArticles%2f462525%2fSimple-HTTP-Server-and-Client-in-Python" method="post" 
+						class="tight">
+
+						
+						<input id="FormName" name="FormName" value="MenuBarForm" type="hidden" />
+
+						<div>Email</div>
+						<div><input class="small-text" type="email" name="Email" id="Email" /></div>
+						<div>Password</div>
+						<div><input class="small-text" type="password" name="Password" id="Password" /></div>
+						<div class="action">
+							<script type="text/javascript">
+function Join(){document.location.href='http://www.codeproject.com/script/Membership/Modify.aspx';return false;}
+document.write('<input type="button" class="create" onclick="return Join();" value="Join"');
+document.write('<input type="hidden" name="fld_quicksign" value="true" />');
+</script>
+							<input type="submit" value="Sign in" class="signin" 
+								onclick="return doSubmit(false);" />
+						</div>
+
+						<div class="container">
+							
+							&nbsp;
+							<a id="ctl00_MemberMenu_SendPassword" class="forgot float-right" href="/script/Membership/SendPassword.aspx?rp=%2fArticles%2f462525%2fSimple-HTTP-Server-and-Client-in-Python">Forgot your password?</a>
+						</div>
+					</form>
+
+					<hr class="divider-dark" />
+
+					Sign in using <a title="Sign in using Facebook" class="oauth" href="/script/Membership/OAuthLogOn.aspx?auth=Facebook" style="vertical-align:middle;padding-right:3px"><img title="Sign in using Facebook" src="/script/Membership/Images/facebook.png" alt="" style="border-width:0px;" /></a><a title="Sign in using Google" class="oauth" href="/script/Membership/OAuthLogOn.aspx?auth=Google" style="vertical-align:middle;padding-right:3px"><img title="Sign in using Google" src="/script/Membership/Images/google-plus.png" alt="" style="border-width:0px;" /></a>
+				</div>
+		
+	</div>
+</div></td>
+		<td class="blank-background" style="height:31px">&nbsp;</td>
+	</tr>
+	<tr valign="middle">
+		<td class="theme1-background" style="height:94px">&nbsp;</td>
+		<td class="theme1-background ad"><div class="msg-728x90" data-format="728x90" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="ros"  data-tags='Python,rating4'></div></td>
+		<td class="theme1-background" style="height:94px">&nbsp;</td>
+	</tr>
+	<tr valign="top">
+		<td style="height: 10px;"></td>
+		<td style="height: 10px;" class="blank-background"></td>
+		<td style="height: 10px;"></td>
+	</tr>
+</table>
+
+
+	<a href="#Main"><img alt="Click here to Skip to main content" class="access-link" 
+		src="/Images/t.gif" /></a>
+
+	
+	<div id="ctl00_TPR" class="sub-headerbar fixed">
+	<table cellpadding="0" cellspacing="0" class="extended"><tr><td nowrap="nowrap">
+		
+
+<div class="navbar clearfix">
+<ul class="navmenu openable">
+
+<li><a id="ctl00_TopNavBar_Home" href="http://www.codeproject.com">home</a>
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Art" class="down selected" href="/script/Articles/Latest.aspx">articles</a>
+
+	<ul>
+		<li class="openable"><a id="ctl00_TopNavBar_ArtTopicList" class="fly" onmouseover="navBarMenu.ShowMap(this, &#39;ctl00_TopNavBar_MapFlyout&#39;);" href="/script/Content/SiteMap.aspx">Chapters and Sections<span class="has-submenu">&gt;</span></a><ul id="ctl00_TopNavBar_MapFlyout">
+			<li>
+				<div id="siteMap">
+					<img src="/images/animated.gif" alt="loading" style="margin:150px;width:100px;height:100px;" />
+				</div>
+			</li>
+			</ul>
+		</li>
+		<li><a id="ctl00_TopNavBar_ArtSearch" class="fly break" href="/search.aspx">Search</a></li>
+		<li><a id="ctl00_TopNavBar_ArtLatestArts" class="fly" href="/script/Articles/Latest.aspx?at=1,3,7">Latest Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtLatestTips" class="fly" href="/script/Articles/Latest.aspx?at=6">Latest Tips/Tricks</a></li>
+		<li><a id="ctl00_TopNavBar_ArtTop" class="fly" href="/script/Articles/TopArticles.aspx?ta_so=5">Top Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtBeginner" class="fly" href="/search.aspx?aidlst=152&amp;sa_us=True">Beginner Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtBlogArticles" class="fly break" href="/script/Articles/BlogArticleList.aspx">Technical Blogs</a></li>
+		<li><a id="ctl00_TopNavBar_ArtGuide" class="fly" href="/info/Submit.aspx">Posting/Update Guidelines</a></li>
+		<li><a id="ctl00_TopNavBar_ArtHelpForum" class="fly" href="/Forums/1641/Article-Writing.aspx">Article Help Forum</a></li>
+		<li><a id="ctl00_TopNavBar_ArtCompetition" class="fly break" href="/script/Awards/CurrentCompetitions.aspx?cmpTpId=1">Article Competition</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostArticle" class="fly highlight1" href="/script/Articles/Submit.aspx">
+			<img src="/images/write-gr.png" width="19px" height="13px" /> Submit an article or tip
+			</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostBlog" class="fly highlight2" href="/script/Articles/BlogFeed.aspx">
+			<img src="/images/write-or.png" width="19px" height="13px" /> Post your Blog
+			</a></li>		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Answers" href="/script/Answers/List.aspx?tab=active">quick answers</a>
+	<ul>
+		<li id="ctl00_TopNavBar_AQL"><a id="ctl00_TopNavBar_ArticleQuestion" class="fly highlight1" href="#_comments">
+			<img src="/images/write-gr.png" width="19px" height="13px" /> Ask a Question about this 
+			article</a>
+		</li>
+
+		<li><a id="ctl00_TopNavBar_QAAsk" class="fly highlight2" href="/Questions/ask.aspx"><img 
+			src="/images/write-or.png" width="19px" height="13px" /> Ask a Question</a></li>
+
+		
+		<li><a id="ctl00_TopNavBar_QAUnanswered" class="fly" href="/script/Answers/List.aspx?tab=unanswered">View Unanswered Questions</a></li>
+		<li><a id="ctl00_TopNavBar_QALatest" class="fly" href="/script/Answers/List.aspx?tab=active">View All Questions...</a></li>
+		
+				<li><a id="ctl00_TopNavBar_QATR_ctl00_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=81" style="padding-left:30px">C# questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl01_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=85" style="padding-left:30px">ASP.NET questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl02_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=842" style="padding-left:30px">VB.NET questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl03_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=308" style="padding-left:30px">C#4.0 questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl04_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=78" style="padding-left:30px">C++ questions</a></li>
+			
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Forums" href="/script/Forums/List.aspx">discussions</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_MessageBoardsAll" class="fly" href="/script/Forums/List.aspx">All Message Boards...</a></li>
+		<li class="openable"><a class="fly" style="padding-left:30px" href="/Forums/1580997/Application-Lifecycle.aspx">Application Lifecycle<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="/Forums/1533717/Running-a-Business.aspx">Running a Business</a></li>
+<li><a class="fly" href="/Forums/1533716/Sales-Marketing.aspx">Sales / Marketing</a></li>
+<li><a class="fly" href="/Forums/1651/Collaboration-Beta-Testing.aspx">Collaboration / Beta Testing</a></li>
+<li><a class="fly" href="/Forums/3304/Work-Training-Issues.aspx">Work &amp; Training Issues</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/369270/Design-and-Architecture.aspx">Design and Architecture</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/12076/ASP-NET.aspx">ASP.NET</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1580226/JavaScript.aspx">JavaScript</a>
+</li>
+<li class="openable"><a class="fly" style="padding-left:30px" href="/Forums/1647/C-Cplusplus-MFC.aspx">C / C++ / MFC<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="/Forums/4486/ATL-WTL-STL.aspx">ATL /  WTL / STL</a></li>
+<li><a class="fly" href="/Forums/3785/Managed-Cplusplus-CLI.aspx">Managed C++/CLI</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1827459/Adobe-Technologies.aspx">Adobe Technologies</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1649/Csharp.aspx">C#</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1627782/Free-Tools.aspx">Free Tools</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1827460/Objective-C.aspx">Objective-C</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1832431/Ruby-On-Rails.aspx">Ruby On Rails</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1725/Database.aspx">Database</a>
+</li>
+<li class="openable"><a class="fly" style="padding-left:30px" href="/Forums/186301/Hardware-Devices.aspx">Hardware &amp; Devices<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="/Forums/1644/System-Admin.aspx">System Admin</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1606152/Hosting-and-Servers.aspx">Hosting and Servers</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1643/Java.aspx">Java</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1650/NET-Framework.aspx">.NET Framework</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/13695/Mobile.aspx">Mobile</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1653293/VS-2012-NET-4-5.aspx">VS 2012 &amp; .NET 4.5</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1540733/Sharepoint.aspx">Sharepoint</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1004257/Silverlight-WPF.aspx">Silverlight / WPF</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1646/Visual-Basic.aspx">Visual Basic</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1640/Web-Development.aspx">Web Development</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1645/Site-Bugs-Suggestions.aspx">Site Bugs / Suggestions</a>
+</li>
+
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Features" href="/Feature/">features</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_Catalog" class="fly" href="/script/Catalog/List.aspx">Component & Service Catalog</a></li>
+		<li><a id="ctl00_TopNavBar_Comps" class="fly" href="/script/Awards/CurrentCompetitions.aspx?cmpTpId=1&amp;awsac=true">Competitions</a></li>
+		<li><a id="ctl00_TopNavBar_News" class="fly" href="/script/News/List.aspx">News</a></li>
+		<li><a id="ctl00_TopNavBar_Insider" class="fly" href="/Feature/Insider/">The Insider Newsletter</a></li>
+		<li><a id="ctl00_TopNavBar_Newsletters" class="fly" href="/script/Mailouts/Archive.aspx?mtpid=1">Newsletter archive</a></li>
+		<li><a id="ctl00_TopNavBar_Surveys" class="fly" href="/script/Surveys/List.aspx">Surveys</a></li>
+		<li><a id="ctl00_TopNavBar_Showcase" class="fly" href="/KB/showcase/">Product Showcase</a></li>
+		<li><a id="ctl00_TopNavBar_Research" class="fly" href="/script/ResearchLibrary/Index.aspx">Research Library</a></li>
+
+		
+		<li><a id="ctl00_TopNavBar_Stuff" class="fly" href="/Info/Stuff.aspx">CodeProject Stuff</a></li>
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+<li  class="openable"><a id="ctl00_TopNavBar_Lounge" href="/Lounge.aspx">community</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_InsiderLnk" class="fly" href="/insider.aspx/988106/undefined">The Insider News</a></li>
+		<li><a id="ctl00_TopNavBar_LoungeLnk" class="fly" href="/Lounge.aspx">The Lounge  </a></li>
+		<li><a id="ctl00_TopNavBar_WeirdWonderful" class="fly" href="/Feature/WeirdAndWonderful.aspx">The Weird & The Wonderful</a></li>
+		<li><a id="ctl00_TopNavBar_SoapBoxLnk" class="fly" href="/Forums/1536756/The-Soapbox.aspx">The Soapbox</a></li>
+		<li><a id="ctl00_TopNavBar_PRLnk" class="fly break" href="/Forums/1738007/Press-Releases.aspx">Press Releases</a></li>
+		<li><a id="ctl00_TopNavBar_WhosWho" class="fly" href="/script/Membership/Profiles.aspx">Who's Who</a></li>
+		<li><a id="ctl00_TopNavBar_MVPs" class="fly" href="/script/Awards/MVPWinners.aspx">Most Valuable Professionals</a></li>
+		<li><a id="ctl00_TopNavBar_Companies" class="fly break" href="/script/Membership/Profiles.aspx?mgtid=1&amp;mgm=True">Company Listings</a></li>
+
+		
+		<li class="openable"><a class="fly" href="/Forums/1580229/Hindi.aspx">Non-English Language
+			<span class="has-submenu">&gt;</span></a>
+		<ul>
+		<li><a class="fly" href="/Forums/1580229/Hindi.aspx">General Indian Topics</a></li>
+		<li><a class="fly" href="/Forums/1580230/Chinese.aspx">General Chinese Topics</a></li>
+		</ul>
+		<li class="last"></li>
+		
+	</ul>
+
+</li>
+
+
+<li class="openable" style="margin-left:20px"><a id="ctl00_TopNavBar_Help" href="/KB/FAQs/">help</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_HelpWhatIs" class="fly" href="/info/guide.aspx">What is 'CodeProject'?</a></li>
+		<li><a id="ctl00_TopNavBar_HelpGeneral" class="fly break" href="/KB/FAQs/">General FAQ</a></li>
+		<li><a id="ctl00_TopNavBar_HelpPostQuestion" class="fly break highlight1" href="/Questions/ask.aspx">Ask a Question</a></li>
+		<li><a id="ctl00_TopNavBar_HelpBugs" class="fly" href="/Forums/1645/Site-Bugs-Suggestions.aspx">Bugs and Suggestions</a></li>
+		<li><a id="ctl00_TopNavBar_HelpArticles" class="fly" href="/Forums/1641/Article-Writing.aspx">Article Help Forum</a></li>
+		<li><a id="ctl00_TopNavBar_HelpSiteMap" class="fly" href="/script/Content/SiteMap.aspx">Site Map</a></li>
+		<li><a id="ctl00_TopNavBar_HelpAdvertise" class="fly" href="http://developermedia.com/">Advertise with us</a></li>
+		<li><a id="ctl00_TopNavBar_HelpJobs" class="fly" href="/info/Jobs/">Employment Opportunities</a></li>
+		<li><a id="ctl00_TopNavBar_HelpAboutUs" class="fly" href="/info/about.aspx">About Us</a></li>
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+</ul>
+
+</div>
+	</td><td align="right">
+		
+
+<div class="searchbar">
+
+<form method="get" action="/search.aspx" name="Search" class="tight">
+
+
+<table border="0" cellspacing="0" cellpadding="0" class="search"><tr><td><input TabIndex="2" class="search " id="sb_tb" value="" name="q" /></td><td><input type="image" src="/images/search.gif" /></td></tr></table>
+
+<div class="hover-container">
+	<div id="SearchFilter" class="search-advanced popup small-text align-left">
+	<b>Search within:<br /></b>
+		
+		<input type="radio" id="sb_kw" name="sbo" value="kw" checked="true"><label for="sb_kw">Articles</label><br>
+<input type="radio" id="sb_vkw" name="sbo" value="vkw"><label for="sb_vkw">Videos</label><br>
+<input type="radio" id="sb_qa" name="sbo" value="qa"><label for="sb_qa">Quick Answers</label><br>
+<input type="radio" id="sb_fm" name="sbo" value="fm"><label for="sb_fm">Messages</label><br>
+<input type="radio" id="sb_ctlk" name="sbo" value="ctlk"><label for="sb_ctlk">Product Catalog</label><br>
+
+
+		
+		
+	</div>
+</div>
+</form>
+
+</div>
+	</td></tr></table>
+	<div class="sub-headerbar-divider"></div>
+	</div>
+	
+
+	<div id="A" class="container-content-wrap fixed"> 
+
+	<div itemscope itemtype="http://schema.org/Article" class="container-content"> 
+
+		<div class="clearfix">
+			<div class="float-left container-breadcrumb">
+				<div><a href="/script/Content/SiteMap.aspx">Articles</a> &#187; <a href="/Chapters/6/General-Programming.aspx">General Programming</a> &#187; <a href="/KB/IP/"><span itemprop="articleSection">Internet / Network</span></a> &#187; <a href="/KB/IP/#Client%2fServer+Development">Client/Server Development</a></div>
+			</div>
+
+			<div class="align-left float-right padded-top">
+				
+
+
+
+
+ 
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+			</div>
+
+			<div class="float-right container-breadcrumb article-nav">
+				
+<div class="">
+
+
+<a id="ctl00_PrevNext_NextLink" title="Next" href="/script/Articles/PrevNextLookup.aspx?aid=462525&amp;at=3&amp;secId=22" style="margin-left:5px">Next</a>
+<img id="ctl00_PrevNext_NextImg" title="Next" rel="nofollow" src="/Images/arrow-right.png" style="border-width:0px;vertical-align:bottom;" />
+</div>
+			</div>
+
+			<div class="align-right float-left">
+				
+			</div>
+		</div>
+
+		<table class="extended container-article-parts" cellpadding="0" cellspacing="0"><tr valign="top">
+		<td>
+
+			<div id="ctl00_Nav" class="container-article-tabs">
+				<div class="tabs">
+					
+
+<div class="">
+	<div class="selected">Article</div><div class="unselected"><a href="/script/Articles/ViewDownloads.aspx?aid=462525">Browse Code</a></div><div class="unselected"><a href="/script/Articles/Statistics.aspx?aid=462525">Stats</a></div><div class="unselected"><a href="/script/Articles/ListVersions.aspx?aid=462525">Revisions (6)</a></div><div class="unselected"><a href="/script/Articles/ListAlternatives.aspx?aid=462525">Alternatives</a></div>
+</div>	
+
+
+					<!-- anchorLink used to auto-link to comments at end of article -->
+					<div class="unselected"><a href="../../MasterPages/#_comments" id="ctl00_CommentLink" class="anchorLink">Comments &amp; 
+						Discussions <span id="ctl00_CmtCnt">(2)</span></a>
+					</div>
+				</div>
+
+				
+			</div>
+
+		</td>
+		<td>
+			
+			<div id="AT" class="container-article  fixed"> 
+				<div class="article">
+
+					
+					 
+					<div class="header">
+
+					<a name="Main"></a>
+
+					
+					<a name="_articleTop" id="_articleTop"></a>
+					<div class="title">
+					
+					
+					<h1 id="ctl00_ArticleTitle" itemprop="name">Simple HTTP Server and Client in Python</h1> 
+					</div>
+
+					
+					<div class="entry">
+						By <span class="author"><a href="/script/Membership/View.aspx?mid=6640062" rel="author"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Junian Triajianto</span></span></a></span>, 
+						<span class="date" itemprop="dateModified" content="2012-09-21 14:01:00">
+							21 Sep 2012</span>
+			
+									
+					</div>
+
+					
+					<!-- Tables. Yes. I'm weak -->
+					<table class="container-rating"><tr><td>
+						<div id="ctl00_CurRat" class="tooltip anchorLink" style="cursor:pointer" onclick="scrollToAnchor(&#39;#_rating&#39;);" name="CurRat_462525">
+				
+							
+
+<table cellpadding="0" cellspacing="0" class="small-text" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"> 
+<tr>
+	
+	<td class="nowrap">
+
+		
+			<meta itemprop="bestRating" content="5"> 
+			<meta itemprop="worstRating" content="1">
+		
+
+		<span id="ctl00_ArticleRating_VI">
+		<div class="nowrap rating-stars-large" style="height:19px;width:139px;position:relative;">
+	<div class="clipped align-left float-left" style="height:19px;width:129px;">
+		<img src="/script/Ratings/Images/stars-fill-lg.png" style="border-width:0px;" />
+	</div><div class="clipped" style="height:19px;width:10px;position:relative;">
+		<img src="/script/Ratings/Images/stars-empty-lg.png" style="border-width:0px;position:absolute;top:0;right:0;" />
+	</div>
+</div>
+		</span>
+
+		
+	</td>
+	
+	<td id="ctl00_ArticleRating_VR" class="nowrap">
+		&nbsp;
+		<span id="ctl00_ArticleRating_VotesR">&nbsp;<span itemprop="ratingValue" class="rating">4.50</span> (<span itemprop="ratingCount" class="count">2</span> votes)</span>
+		
+	</td>
+
+</tr>
+
+</table>
+
+
+							<div id="ctl00_RB" class="speech-bubble-container-up">
+								<div class="speech-bubble-up" style="width:150px !important">
+									            
+<div>
+<table class="feature" width="100%" height="50px" title="Voting Distribution. Recent data only" cellpadding="0" cellspacing="0"><tr class="chart-row"><td class="chart-column"><img src="/Images/t.gif" width="20pxpx" height="1px" border="0px" alt="" title="" /><br /><span title="0 votes">1</span></td>
+<td class="chart-column"><img src="/Images/t.gif" width="20pxpx" height="1px" border="0px" alt="" title="" /><br /><span title="0 votes">2</span></td>
+<td class="chart-column"><img src="/Images/t.gif" width="20pxpx" height="1px" border="0px" alt="" title="" /><br /><span title="0 votes">3</span></td>
+<td class="chart-column"><img src="/script/Ratings/Images/pollcol.gif" width="20pxpx" height="50px" border="0px" alt="1 vote, 50.0%" title="1 vote, 50.0%" /><br /><span title="1 vote">4</span></td>
+<td class="chart-column"><img src="/script/Ratings/Images/pollcol.gif" width="20pxpx" height="50px" border="0px" alt="1 vote, 50.0%" title="1 vote, 50.0%" /><br /><span title="1 vote">5</span></td>
+</tr></table><div class="small-text align-center">4.50/5 - 2 votes</div><div class="small-text align-center subdue">µ 4.50, s<sub>a</sub> 5.00 [<a href="/KB/FAQs/RatingReputationFAQ.aspx#noisefilter">?</a>]</div>
+</div>
+								</div>
+								<div class="speech-bubble-pointer-up">
+									<div class="speech-bubble-pointer-up-inner"></div>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td>
+						&nbsp;
+						
+					</td></tr></table>
+
+					</div>
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+					
+
+					<form name="aspnetForm" method="post" action="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python" id="aspnetForm" style="margin:0;padding:0">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMjExOTQzNjk4Mw9kFgJmD2QWBAIKDxYCHgVjbGFzcwUTc3ViLWhlYWRlcmJhciBmaXhlZGQCCw8WAh8ABRxjb250YWluZXItY29udGVudC13cmFwIGZpeGVkFhACAQ9kFgJmDxYCHgRUZXh0BbYCPGRpdj48YSBocmVmPSIvc2NyaXB0L0NvbnRlbnQvU2l0ZU1hcC5hc3B4Ij5BcnRpY2xlczwvYT4gJiMxODc7IDxhIGhyZWY9Ii9DaGFwdGVycy82L0dlbmVyYWwtUHJvZ3JhbW1pbmcuYXNweCI+R2VuZXJhbCBQcm9ncmFtbWluZzwvYT4gJiMxODc7IDxhIGhyZWY9Ii9LQi9JUC8iPjxzcGFuIGl0ZW1wcm9wPSJhcnRpY2xlU2VjdGlvbiI+SW50ZXJuZXQgLyBOZXR3b3JrPC9zcGFuPjwvYT4gJiMxODc7IDxhIGhyZWY9Ii9LQi9JUC8jQ2xpZW50JTJmU2VydmVyK0RldmVsb3BtZW50Ij5DbGllbnQvU2VydmVyIERldmVsb3BtZW50PC9hPjwvZGl2PmQCAw9kFgQCBA8PFgIeC05hdmlnYXRlVXJsBTkvc2NyaXB0L0F3YXJkcy9BZG1pbi9Bd2FyZE9iamVjdC5hc3B4P29iaWQ9NDYyNTI1Jm9idGlkPTJkZAIODw8WAh8CBTAvc2NyaXB0L0FydGljbGVzL0FkbWluL1F1ZXVlRWRpdC5hc3B4P2FpZD00NjI1MjVkZAIFD2QWBAICDw8WBh8CBT0vc2NyaXB0L0FydGljbGVzL1ByZXZOZXh0TG9va3VwLmFzcHg/YWlkPTQ2MjUyNSZhdD0zJnNlY0lkPTIyHgdUb29sVGlwBQROZXh0HgdWaXNpYmxlZ2RkAgMPDxYEHghJbWFnZVVybAUXL0ltYWdlcy9hcnJvdy1yaWdodC5wbmcfBGcWBB4Fc3R5bGUFFnZlcnRpY2FsLWFsaWduOmJvdHRvbTseA3JlbAUIbm9mb2xsb3dkAgkPZBYEAgMPFgQeBGhyZWYFCiNfY29tbWVudHMfAAUKYW5jaG9yTGluaxYCAgEPFgIeCWlubmVyaHRtbAUDKDIpZAIFDw8WAh8CBTcvc2NyaXB0L0FydGljbGVzL1N1Ym1pc3Npb25XaXphcmQuYXNweD9hdD0xJmFwaWQ9NDYyNTI1ZGQCCw8WAh8ABRhjb250YWluZXItYXJ0aWNsZSAgZml4ZWQWBgIBDxYCHwRnFghmDxYCHwkFJ1NpbXBsZSBIVFRQIFNlcnZlciBhbmQgQ2xpZW50IGluIFB5dGhvbmQCAQ8WAh8BBb8BPGEgaHJlZj0iL3NjcmlwdC9NZW1iZXJzaGlwL1ZpZXcuYXNweD9taWQ9NjY0MDA2MiIgcmVsPSJhdXRob3IiPjxzcGFuIGl0ZW1wcm9wPSJhdXRob3IiIGl0ZW1zY29wZSBpdGVtdHlwZT0iaHR0cDovL3NjaGVtYS5vcmcvUGVyc29uIj48c3BhbiBpdGVtcHJvcD0ibmFtZSI+SnVuaWFuIFRyaWFqaWFudG88L3NwYW4+PC9zcGFuPjwvYT5kAgIPFgIfAQUTMjAxMi0wOS0yMSAxNDowMTowMGQCAw8WAh8BBQsyMSBTZXAgMjAxMmQCAw8PFgIfBGdkZAIND2QWAgICDxYCHgZhY3Rpb24FOC9BcnRpY2xlcy80NjI1MjUvU2ltcGxlLUhUVFAtU2VydmVyLWFuZC1DbGllbnQtaW4tUHl0aG9uFggCAQ9kFgICAQ8WAh8EaGQCAw9kFgICAg9kFgICAQ8QZGQWAGQCCQ8WAh4LXyFJdGVtQ291bnQCAWQCCw9kFgICAQ8WAh8BBXE8YSBjbGFzcz0iYW5jaG9yTGluayIgaHJlZj0iL0FydGljbGVzLzQ2MjUyNS9TaW1wbGUtSFRUUC1TZXJ2ZXItYW5kLUNsaWVudC1pbi1QeXRob24jX2FydGljbGVUb3AiPkFydGljbGUgVG9wPC9hPmQCDQ9kFgQCAw8WAh8EZxYCAgEPFgIfAQXZAUEgPGI+VGVjaG5pY2FsIEJsb2c8L2I+LCBvcmlnaW5hbGx5IHBvc3RlZCBhdCA8YSBocmVmPSJodHRwOi8va29kZWZ1bi5qdW5pYW4ubmV0LzIwMTEvMTEvc2ltcGxlLWh0dHAtc2VydmVyLWFuZC1jbGllbnQtaW4tcHl0aG9uLmh0bWwiPmh0dHA6Ly9rb2RlZnVuLmp1bmlhbi5uZXQvMjAxMS8xMS9zaW1wbGUtaHR0cC1zZXJ2ZXItYW5kLWNsaWVudC1pbi1weXRob24uaHRtbDwvYT5kAgsPZBYEAgIPDxYCHwIFRi9BcnRpY2xlcy80NjI1MjUvU2ltcGxlLUhUVFAtU2VydmVyLWFuZC1DbGllbnQtaW4tUHl0aG9uP2Rpc3BsYXk9UHJpbnRkZAIEDw8WAh8CBTIvc2NyaXB0L2NvbW1vbi9UZWxsRnJpZW5kLmFzcHg/b2J0aWQ9MiZvYmlkPTQ2MjUyNWRkAg8PDxYEHwEFCVBlcm1hbGluax8CBTgvQXJ0aWNsZXMvNDYyNTI1L1NpbXBsZS1IVFRQLVNlcnZlci1hbmQtQ2xpZW50LWluLVB5dGhvbmRkAh8PFgIfAQUjQ29weXJpZ2h0IDIwMTIgYnkgSnVuaWFuIFRyaWFqaWFudG9kZDBwckNMSrEryA7dOiUe2dA6Pjzr" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCAKUg4ukDwLAlMXDBwLBlMXDBwLClMXDBwLDlMXDBwLElMXDBwLP+++tCwK5upDkC5ycRIHg/EAw542+hYhIBWhdUq6N" />
+</div>
+
+							
+							<div id="contentdiv" class="text" itemprop="articleBody">
+							
+
+
+
+<img border="0" src="http://2.bp.blogspot.com/-tRjAV0oSLgE/UE16SfVcc2I/AAAAAAAAA9g/OPY75yCK-kk/s1600/python-logo.JPG" /><br />
+<div>
+<div style="text-align: justify;">
+This time I'd like to show you how to make a simple HTTP server and client in python. It's a bit different from other tutorials I've ever wrote and I'd like to say that I'm also a beginner in python. But, I'll try to make sure you understand what I wrote because this tutorial is easy.</div>
+</div>
+<div>
+</div>
+<div>
+<div style="text-align: justify;">
+First, you need to know what HTTP is. Definition of HTTP based on <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank">wikipedia</a>:</div>
+</div>
+<blockquote class="tr_bq">
+<div style="text-align: justify;">
+<em>The Hypertext Transfer Protocol (HTTP) is an application protocol for distributed, collaborative, hypermedia information systems. HTTP is the foundation of data communication for the World Wide Web.</em></div>
+</blockquote>
+<div>
+<br />
+<div style="text-align: justify;">
+In simple words, HTTP is a protocol that used for world wide web communication. So, if you're browsing the web, downloading data, and hosting a website, you're using HTTP protocol. There are many web server software that support HTTP protocol such as <em>apache</em>, <em>nginx</em>, and <em>lighttpd</em>. This time, you're so lucky because I'll show you how to make something like that (a simple version of course) in python language.</div>
+<div style="text-align: justify;">
+<a name="more"></a></div>
+</div>
+<div>
+<span style="font-size: large;"><strong>Step #1: Write HTTP server script using&nbsp;BaseHTTPServer module</strong></span></div>
+<div>
+<br />
+<div style="text-align: justify;">
+Luckily, python provide us an HTTP server module, it's called&nbsp;<code>BaseHTTPServer</code>. We use two classes from this module, namely&nbsp;<code>BaseHTTPRequestHandler</code><strong><em> </em></strong>and&nbsp;<code>HTTPServer</code>. We also need to use <strong><em>os </em></strong>module to access file in your system.</div>
+</div>
+<div>
+</div>
+<div>
+First, we need to import those modules
+<br />
+<pre class="brush: py">#!/usr/bin/env python
+
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+import os
+ 
+</pre>
+Next, write a custom class namely <code>KodeFunHTTPRequestHandler</code><strong><em> </em></strong>that implement <code>BaseHTTPRequestHandler</code>.
+<br />
+<pre class="brush: py; first-line: 6">#Create custom HTTPRequestHandler <span class="code-keyword">class</span>
+<span class="code-keyword">class</span> KodeFunHTTPRequestHandler(BaseHTTPRequestHandler):
+    
+</pre>
+</div>
+<div>
+<div style="text-align: justify;">
+In this tutorial, I just implement GET command from HTTP. To do that, we need to override <code>do_GET()</code> function. Our objective is to request an HTML file from server using our client (explained int the next step). Script inside<strong><em> </em></strong><code><strong><em></em></strong>do_GET()</code><strong><em> </em></strong>function is written to handle our objective.</div>
+<pre class="brush: py; first-line: 9">    #handle GET command
+    def do_GET(self):
+        rootdir = <span class="code-string">'</span><span class="code-string">c:/xampp/htdocs/'</span> #file location
+        <span class="code-keyword">try</span>:
+            <span class="code-keyword">if</span> self.path.endswith(<span class="code-string">'</span><span class="code-string">.html'</span>):
+                f = open(rootdir + self.path) #open requested file
+
+                #send code <span class="code-digit">200</span> response
+                self.send_response(<span class="code-digit">200</span>)
+
+                #send header first
+                self.send_header(<span class="code-string">'</span><span class="code-string">Content-type'</span>,<span class="code-string">'</span><span class="code-string">text-html'</span>)
+                self.end_headers()
+
+                #send file content to client
+                self.wfile.write(f.read())
+                f.close()
+                <span class="code-keyword">return</span>
+            
+        except IOError:
+            self.send_error(<span class="code-digit">404</span>, <span class="code-string">'</span><span class="code-string">file not found'</span>)
+ 
+</pre>
+Finally, add following script to run the server<br />
+<pre class="brush: py; first-line:31">def run():
+    print(<span class="code-string">'</span><span class="code-string">http server is starting...'</span>)
+
+    #ip <span class="code-keyword">and</span> port of servr
+    #by <span class="code-keyword">default</span> http server port is <span class="code-digit">80</span>
+    server_address = (<span class="code-string">'</span><span class="code-string">127.0.0.1'</span>, <span class="code-digit">80</span>)
+    httpd = HTTPServer(server_address, KodeFunHTTPRequestHandler)
+    print(<span class="code-string">'</span><span class="code-string">http server is running...'</span>)
+    httpd.serve_forever()
+    
+<span class="code-keyword">if</span> __name__ == <span class="code-string">'</span><span class="code-string">__main__'</span>:
+    run()
+</pre>
+Save it and name it whatever you want (e.g, <em>kodefun-httpserver.py</em>). Here is the complete script of http server:<br />
+<pre class="brush: py" title="kodefun-httpserver.py">#!/usr/bin/env python
+
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+import os
+
+#Create custom HTTPRequestHandler <span class="code-keyword">class</span>
+<span class="code-keyword">class</span> KodeFunHTTPRequestHandler(BaseHTTPRequestHandler):
+    
+    #handle GET command
+    def do_GET(self):
+        rootdir = <span class="code-string">'</span><span class="code-string">c:/xampp/htdocs/'</span> #file location
+        <span class="code-keyword">try</span>:
+            <span class="code-keyword">if</span> self.path.endswith(<span class="code-string">'</span><span class="code-string">.html'</span>):
+                f = open(rootdir + self.path) #open requested file
+
+                #send code <span class="code-digit">200</span> response
+                self.send_response(<span class="code-digit">200</span>)
+
+                #send header first
+                self.send_header(<span class="code-string">'</span><span class="code-string">Content-type'</span>,<span class="code-string">'</span><span class="code-string">text-html'</span>)
+                self.end_headers()
+
+                #send file content to client
+                self.wfile.write(f.read())
+                f.close()
+                <span class="code-keyword">return</span>
+            
+        except IOError:
+            self.send_error(<span class="code-digit">404</span>, <span class="code-string">'</span><span class="code-string">file not found'</span>)
+    
+def run():
+    print(<span class="code-string">'</span><span class="code-string">http server is starting...'</span>)
+
+    #ip <span class="code-keyword">and</span> port of servr
+    #by <span class="code-keyword">default</span> http server port is <span class="code-digit">80</span>
+    server_address = (<span class="code-string">'</span><span class="code-string">127.0.0.1'</span>, <span class="code-digit">80</span>)
+    httpd = HTTPServer(server_address, KodeFunHTTPRequestHandler)
+    print(<span class="code-string">'</span><span class="code-string">http server is running...'</span>)
+    httpd.serve_forever()
+    
+<span class="code-keyword">if</span> __name__ == <span class="code-string">'</span><span class="code-string">__main__'</span>:
+    run()
+</pre>
+</div>
+<div>
+<strong><span style="font-size: large;">Step #2: Write a simple HTTP client</span></strong><br />
+<br />
+<div style="text-align: justify;">
+To check if our server is working fine, we need an HTTP client. You can use your web browser to do this. But, It'll be cool if you make your own client. To accomplish this, let's make another script, let's name it <em>kodefun-httpclient.py</em>. Copy following script to your file:</div>
+<pre class="brush: py" title="kodefun-httpclient.py">#!/usr/bin/env python
+
+import httplib
+import sys
+
+#get http server ip
+http_server = sys.argv[<span class="code-digit">1</span>]
+#create a connection
+conn = httplib.HTTPConnection(http_server)
+
+<span class="code-keyword">while</span> <span class="code-digit">1</span>:
+    cmd = raw_input(<span class="code-string">'</span><span class="code-string">input command (ex. GET index.html): '</span>)
+    cmd = cmd.split()
+
+    <span class="code-keyword">if</span> cmd[<span class="code-digit">0</span>] == <span class="code-string">'</span><span class="code-string">exit'</span>: #tipe exit to end it
+        <span class="code-keyword">break</span>
+    
+    #request command to server
+    conn.request(cmd[<span class="code-digit">0</span>], cmd[<span class="code-digit">1</span>])
+
+    #get response from server
+    rsp = conn.getresponse()
+    
+    #print server response <span class="code-keyword">and</span> data
+    print(rsp.status, rsp.reason)
+    data_received = rsp.read()
+    print(data_received)
+    
+conn.close()
+</pre>
+<br />
+<strong><span style="font-size: large;">Step #3: Test using GET command</span></strong><br />
+<br />
+<div style="text-align: justify;">
+The final step, we'll test is our scripts above work just fine. To run the server, type the following command in your command prompt or terminal:</div>
+<pre class="brush: xml">python kodefun-httpserver.py
+</pre>
+<div style="text-align: justify;">
+If there is no problem, you'll see &quot;http server is running...&quot;. Next, we need to create a dummy HTML file, let's call it dummy.html and copy the code below:</div>
+<pre class="brush: xml" title="dummy.html"><span class="code-keyword">&lt;</span><span class="code-leadattribute">head</span><span class="code-keyword">&gt;</span>
+ <span class="code-keyword">&lt;</span><span class="code-leadattribute">title</span><span class="code-keyword">&gt;</span>Dummy HTML<span class="code-keyword">&lt;</span><span class="code-keyword">/</span><span class="code-leadattribute">title</span><span class="code-keyword">&gt;</span>
+<span class="code-keyword">&lt;</span><span class="code-keyword">/</span><span class="code-leadattribute">head</span><span class="code-keyword">&gt;</span>
+<span class="code-keyword">&lt;</span><span class="code-leadattribute">body</span><span class="code-keyword">&gt;</span>
+ <span class="code-keyword">&lt;</span><span class="code-leadattribute">h1</span><span class="code-keyword">&gt;</span>Kode Fun is Awesome<span class="code-keyword">&lt;</span><span class="code-keyword">/</span><span class="code-leadattribute">h1</span><span class="code-keyword">&gt;</span>
+ <span class="code-keyword">&lt;</span><span class="code-leadattribute">h1</span><span class="code-keyword">&gt;</span>You're awesome<span class="code-keyword">&lt;</span><span class="code-keyword">/</span><span class="code-leadattribute">h1</span><span class="code-keyword">&gt;</span>
+<span class="code-keyword">&lt;</span><span class="code-keyword">/</span><span class="code-leadattribute">body</span><span class="code-keyword">&gt;</span>
+</pre>
+Save it to your root folder defined in your script. In this example I use <em>c:/xampp/htdocs/</em>.<br />
+Next, we need to run the client, type following command to run the client:<br />
+<pre class="brush:xml">python kodefun-httpclient.py <span class="code-digit">127</span>.<span class="code-digit">0</span>.<span class="code-digit">0</span>.<span class="code-digit">1</span>
+</pre>
+When the client is running type following code to get dummy.html file:<br />
+<pre class="brush: xml">GET dummy.html
+</pre>
+If there is no problem, and it should be no problem, you'll see the content of dummy.html file.<br />
+<br />
+<div style="text-align: justify;">
+That's all I can do this time. My upcoming tutorial is how to perform face detection using Accord.NET. Stay tune and keep fighting!!!</div>
+<br />
+<a class="download-link" href="http://adf.ly/ChTTx" target="_blank">Download HTTP server and client scripts</a></div>
+<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=6640062" rel="tag" style="display: none;">CodeProject</a><div class="blogger-post-footer"><img width="1" height="1" src="https://blogger.googleusercontent.com/tracker/6783876284562080429-7173071475878015173?l=kodefun.junian.net" /></div>
+<p><a href="http://feedads.g.doubleclick.net/~a/zX2Y4mYO32JX7h8zmFAXefeLh1o/0/da"><img border="0" src="http://feedads.g.doubleclick.net/~a/zX2Y4mYO32JX7h8zmFAXefeLh1o/0/di" ismap="true" class="nwgrtccwhmybeidbbatt" /></a><br />
+<a href="http://feedads.g.doubleclick.net/~a/zX2Y4mYO32JX7h8zmFAXefeLh1o/1/da"><img border="0" src="http://feedads.g.doubleclick.net/~a/zX2Y4mYO32JX7h8zmFAXefeLh1o/1/di" ismap="true" class="nwgrtccwhmybeidbbatt" /></a></p><img width="1" height="1" src="http://feeds.feedburner.com/~r/KodeFun/~4/OWrEdd8ZOMQ" />
+
+
+							</div>
+							
+
+							
+							
+							<h2>License</h2>
+							<div id="LicenseTerms"><p>This article, along with any associated source code and files, is licensed under <a href="http://www.codeproject.com/info/cpol10.aspx" rel="license">The Code Project Open License (CPOL)</a></p></div>
+							
+
+							<div class="float-right" style="margin:20px 0 0 0;border:1px solid #ccc">
+							<div class="msg-300x250" data-format="300x250" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="ros"  data-loadOnView='true'  data-tags='Python,rating4'></div>
+							</div>
+
+							
+							<h2 id="ctl00_AboutHeading">About the Author</h2>
+
+							
+							
+
+<div class="container">
+<div style="width:210px;overflow:hidden;float:left;text-align:center">
+	<img id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberPhoto" class="profile-pic" src="http://www.codeproject.com/script/Membership/ProfileImages/{37ff4ba0-7dfd-44f9-8cdf-b1ffa77c16cb}.jpg" style="border-width:0px;transform:rotate(-3deg);" />
+</div>
+<div class="container-member float-left" style="width:235px">
+	<b><a id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberProfileLink" class="author" href="/Members/juniantr">Junian Triajianto</a></b>
+	<div class="company">
+		<span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberJobTitle">Software Developer</span>
+		<span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberCompany"></span> 
+		<br /><span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberLocation">Indonesia <img src="/script/Geo/Images/ID.gif" alt="Indonesia" width="16px" height="11px" /></span>
+	</div>
+</div>
+	
+<div class="padded-top float-left clearfix" style="width:600px">
+	Just an ordinary geek.<br />
+&nbsp;<br />
+For more information visit my blogs:<br />
+<a rel="nofollow" href="http://kodefun.junian.net/">Kodefun, learning by coding</a><br />
+<a rel="nofollow" href="http://blog.junian.net/">Junian's Legacy</a><br />
+<a rel="nofollow" href="http://junian.net/">Junian Universe</a>
+
+	
+
+	<div id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_FollowOn" class="padded-top">Follow on
+		&nbsp; <a href="http://www.twitter.com/Kodefun"><img style="vertical-align:middle;border:0;" alt="Twitter" src="http://twitter-badges.s3.amazonaws.com/t_logo-a.png"/></a> <a href="http://www.twitter.com/Kodefun?rel=author" rel="author" class="small-text">Twitter</a>
+		&nbsp; <a href="https://plus.google.com/106765612532582215650"><img style="vertical-align:middle;border:0;" alt="Google+" src="//ssl.gstatic.com/images/icons/gplus-32.png"/></a> <a href="https://plus.google.com/106765612532582215650?rel=author" rel="author" class="small-text">Google</a>
+	</div>
+</div>
+</div><br />
+							
+							
+
+							<div class="clearfix"></div>
+
+							
+							<div id="ctl00_RateArticleRow" class="clearfix voting-bar">
+							<div class="float-left" style="padding-top:8px"><a class="anchorLink" href="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python#_articleTop">Article Top</a></div>
+							<div class="float-left"><a id="_rating" name="_rating">&nbsp;</a></div> 
+							<div class="float-left">
+
+<div class="social-bookmarks">
+<span class="facebook"><div id="fb-root"></div><div class="fb-like" data-href="http://www.codeproject.com/Articles/462525/Simple-HTTP-Server-and-Client-in-Python" data-send="false" data-layout="button_count" data-width="450"  data-show-faces="false" data-font="segoe ui"></div></span>
+<span class="google" style="position:relative;top:-4px"><div class="g-plusone" data-size="medium"></div></span>
+<span class="twitter" style="position:relative;top:-4px"><a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="CodeProject">Tweet</a></span>
+</div></div> 
+							<div class="float-right align-right">
+								<div id="ctl00_RateArticle_RateItemWrapper" class="container-rating small-text" name="RateItem_462525">
+
+	<table width="100%" cellpadding="0" cellspacing="0" class="small-text">
+	<tr>
+		<td id="ctl00_RateArticle_VoteResultDiv" nowrap="nowrap" align="right">
+			<span class="voteRes"></span>
+			<img class="loaderImg" width="16px" alt="loading..." height="16px" 
+				src="/Images/animated_loading_blue.gif" style="display:none;" /> 
+		</td>
+
+	
+		<td class="voteTbl" style="white-space:nowrap" align="right">
+			<table class="small-text">
+			<tr>
+				<td id="ctl00_RateArticle_SignIn" nowrap="nowrap">
+					<a href="#SignUp">Sign Up</a> to vote
+				</td>
+
+				
+				<td id="ctl00_RateArticle_StartForm" align="right" nowrap="nowrap">
+					<i>&nbsp;&nbsp;Poor</i>
+				</td>
+
+				<td id="ctl00_RateArticle_VoteFormDiv" class="nowrap">
+					
+
+					<span id="ctl00_RateArticle_RB" class="tooltip ajaxHist radio voting">
+						<span id="ctl00_RateArticle_VoteRBL"><input id="ctl00_RateArticle_VoteRBL_0" type="radio" name="ctl00$RateArticle$VoteRBL" value="1" onclick="ChkRtctl00_RateArticle(1, 462525);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /><input id="ctl00_RateArticle_VoteRBL_1" type="radio" name="ctl00$RateArticle$VoteRBL" value="2" onclick="ChkRtctl00_RateArticle(2, 462525);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /><input id="ctl00_RateArticle_VoteRBL_2" type="radio" name="ctl00$RateArticle$VoteRBL" value="3" onclick="ChkRtctl00_RateArticle(3, 462525);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /><input id="ctl00_RateArticle_VoteRBL_3" type="radio" name="ctl00$RateArticle$VoteRBL" value="4" onclick="ChkRtctl00_RateArticle(4, 462525);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /><input id="ctl00_RateArticle_VoteRBL_4" type="radio" name="ctl00$RateArticle$VoteRBL" value="5" onclick="ChkRtctl00_RateArticle(5, 462525);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /></span> 
+
+						
+					</span>
+
+				</td>
+
+				<td id="ctl00_RateArticle_EndForm" align="left">
+					<i>Excellent</i>
+				</td>
+
+				<td style="padding-left:5px">	
+					<input type="submit" name="ctl00$RateArticle$SubmitRateBtn" value="Vote" onclick="return PostBack_ctl00_RateArticle_RateItemWrapper();" id="ctl00_RateArticle_SubmitRateBtn" class="button" />
+				</td>
+			</tr>
+			</table>
+			
+		</td>
+	</tr>
+	</table>
+	<div class="hover-container">
+		<div id="ctl00_RateArticle_RCD" class="rating-comment align-left float-right">
+			Add a reason or comment to your vote: <a href="#" id="clear-rate_ctl00_RateArticle_RCD" 
+				title="close">x</a><br />
+			<textarea class="RateComment" rows="5" cols="60" style="width:98%;"></textarea>
+			<span id="ctl00_RateArticle_CommentReq" class="subdue">Votes of 3 or less require a comment</span>
+		</div>
+	</div>
+</div>
+							</div>
+							</div>
+							
+
+						</form>
+
+						
+						<div style="margin:auto;height:90px;margin-top:10px"> 
+							<div class="msg-728x90" data-format="728x90" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="bottom"  data-loadOnView='true'  data-tags='Python,pos_bottom'></div>
+						</div>
+						
+					
+
+				</div>
+
+				
+					
+					<h2>Comments and Discussions</h2>
+					<a class="float-left" name="_comments" id="_comments">&nbsp;</a><table id="ForumTable" class="forum relaxed" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="header1 callout"><b>Hint:</b> For improved responsiveness ensure Javascript is enabled and choose 'Normal' from the Layout dropdown and hit 'Update'.<br /><b>You must <a href="https://www.codeproject.com/script/Membership/LogOn.aspx?rp=%2fArticles%2f462525%2fSimple-HTTP-Server-and-Client-in-Python%3ffid%3d1784955">Sign In</a> to use this message board.</b></td>
+	</tr><tr>
+		<td><table width="100%" border="0" cellpadding="3px" cellspacing="0">
+			<tr class="header1">
+				<td colspan="2" style="white-space:nowrap;"><div class="container">
+					<div class="float-right">
+						<form action="/Search.aspx?fid=0" method="get" class="tight">
+							<input type="hidden" name="fid" value="1784955" /><b>Search this forum </b><input type="text" class="text-input" name="qf" style="width:200px;" />&nbsp;<input type="submit" value="Go" class="button" />
+						</form>
+					</div>
+				</div></td><tr class="header2">
+					<td></td><td style="width:100%;"><div style="text-align:right;">
+						<form action="/script/Forums/SetOptions.aspx?floc=%2fArticles%2f462525%2fSimple-HTTP-Server-and-Client-in-Python&amp;fid=1784955" method="get" style="margin:0;padding:0;">
+							<input type="hidden" name="fid" value="1784955" /><input type="hidden" name="currentQS" value="?floc=%2fArticles%2f462525%2fSimple-HTTP-Server-and-Client-in-Python&amp;fid=1784955" /><input type="hidden" name="floc" value="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python" /><input type="checkbox" checked="checked" name="prof" id="prof" style="vertical-align:middle;" /><label for="prof">Profile popups</label>&nbsp;&nbsp;&nbsp;&nbsp;Spacing<select size="1" class="dropdown" name="spc">
+								<option selected value="Relaxed">Relaxed</option><option value="Compact">Compact</option><option value="Tight">Tight</option>
+							</select>&nbsp;&nbsp;Noise<select size="1" class="dropdown" name="noise">
+								<option value="1">Very High</option><option value="2">High</option><option selected value="3">Medium</option><option value="4">Low</option><option value="5">Very Low</option>
+							</select>&nbsp;&nbsp;Layout<select size="1" class="dropdown" name="view">
+								<option value="Quick">Normal</option><option value="Topic">Open Topics</option><option value="Expanded">Open All</option><option value="Thread">Thread View</option><option value="Normal">No Javascript</option><option value="Preview">Preview</option>
+							</select>&nbsp;&nbsp;Per page<select size="1" class="dropdown" name="mpp">
+								<option value="10">10</option><option value="25">25</option><option selected value="50">50</option>
+							</select>&nbsp;&nbsp;&nbsp;<input type="submit" value="Update" name="SetOpt" class="button" />
+						</form>
+					</div></td>
+				</tr>
+			</tr>
+		</table></td><tr>
+			<td><a name="xx0xx"></a><table border="0" cellpadding="2px" cellspacing="0" width="100%">
+				<tr class="navbar">
+					<td></td><td style="text-align:right;width:50%;"></td><td style="text-align:right;white-space:nowrap;"><span class="nav-link disabled">First</span> <span class="nav-link disabled">Prev</span> <span class="nav-link disabled">Next</span></td>
+				</tr>
+			</table></td>
+		</tr><tr>
+			<td><table border="0" cellpadding="0" cellspacing="0" width="100%" class="fixed-layout blank-background">
+				<tr>
+					<td><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="5px" alt="" /></td>
+				</tr><tr class="header hover-row root">
+					<td class="subject-line none " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td width="20px" class="indent"><a name="xx4373797xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_question.gif" alt="Question" /></td><td class="subject hover-container"><a class="message-link" name="4373797" parent="0" thread="4373797" href="/Messages/4373797/Even-better.aspx">Even better</a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=4413188">kotor21</a></td><td class="date">20-Sep-12  8:49&nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><tr class="header hover-row">
+					<td class="subject-line none " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td width="38px" class="indent"><a name="xx4374025xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_answer.gif" alt="Answer" /></td><td class="subject hover-container"><a class="message-link" name="4374025" parent="4373797" thread="4373797" href="/Messages/4374025/Re-Even-better.aspx">Re: Even better</a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=6640062">Junian Triajianto</a></td><td class="date">20-Sep-12  13:36&nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><tr>
+					<td><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="5px" alt="" /></td>
+				</tr>
+			</table></td>
+		</tr><tr>
+			<td><table width="100%" cellpadding="2px" cellspacing="0">
+				<tr class="footer">
+					<td>Last Visit: 31-Dec-99  18:00 &nbsp; &nbsp; Last Update: 16-Jul-13  0:30</td><td><a href="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python?fid=1784955">Refresh</a></td><td style="text-align:right;white-space:nowrap;"><input id="_mbnUrl" type="hidden" value="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python?fid=1784955&amp;fr=3" /><span class="nav-link selected">1</span></td>
+				</tr>
+			</table></td>
+		</tr>
+	</tr>
+</table><p class="small-text"><img align="top" src="/script/Forums/Images/msg_general.gif" width="16px" height="16px" alt="General" /> General &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_news.gif" width="16px" height="16px" alt="News" /> News &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_idea.gif" width="16px" height="16px" alt="Suggestion" /> Suggestion &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_question.gif" width="16px" height="16px" alt="Question" /> Question &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_bug.gif" width="16px" height="16px" alt="Bug" /> Bug &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_answer.gif" width="16px" height="16px" alt="Answer" /> Answer &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_joke.gif" width="16px" height="16px" alt="Joke" /> Joke &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_rant.gif" width="16px" height="16px" alt="Rant" /> Rant &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_admin.gif" width="16px" height="16px" alt="Admin" /> Admin &nbsp;&nbsp; </p>
+
+				
+
+			</div>
+			
+		</td>
+		<td>
+			<div id="ctl00_RightSideBar" class="container-article-info">
+
+				<div class="header">About Article</div>
+				<div class="article-summary">
+
+					
+					
+
+					
+					<div id="ctl00_BlogWrap" class="source">
+						A <b>Technical Blog</b>, originally posted at <a href="http://kodefun.junian.net/2011/11/simple-http-server-and-client-in-python.html">http://kodefun.junian.net/2011/11/simple-http-server-and-client-in-python.html</a>
+					</div>
+
+					
+					<div class="summary"><span id="ctl00_ArticleDescr">This time I&#39;d like to show you how to make a simple HTTP server and client in python. It&#39;s a bit different from other tutorials I&#39;ve ever wrote and I&#39;d like to say that I&#39;m also a beginner in python. But, I&#39;ll try to make sure you understand what I wrote because this tutorial is easy.First, you need</span></div>
+
+					<a id="ctl00_InfoBox_ParentLink"></a>
+
+<table cellpadding="0" cellspacing="0" class="article-info">
+
+	
+	<tr><td>Type&nbsp;</td><td class="value"><a id="ctl00_InfoBox_TypeName" href="/script/Articles/Types.aspx?#Technical Blog">Technical Blog</a></td></tr>
+	
+
+	<tr><td>Licence&nbsp;</td><td class="value"><a href="http://www.codeproject.com/info/cpol10.aspx" title="The Code Project Open License (CPOL)">CPOL</a></td></tr>
+
+	
+
+	<tr><td>First Posted&nbsp;</td><td nowrap="nowrap" class="value"><span itemprop="datePublished" content="2012-09-20">20 Sep 2012</span></td></tr>
+
+	<tr><td>Views&nbsp;</td><td class="value">12,001</td></tr>
+
+	
+	<tr><td>Downloads&nbsp;</td><td  class="value">0</td></tr>
+		
+
+	
+	<tr><td>Bookmarked&nbsp;</td><td class="value">2 times</td></tr>
+	
+
+	
+
+	
+	
+	
+	<tr><td colspan="2"></td>
+	</tr>
+	
+	
+</table>
+
+					<div class="tags"> 
+					<span id="ctl00_TagsList_TagWrp" class="tags">
+	
+	
+	
+	<span id="ctl00_TagsList_VisibleTags"><span class="t"><a rel="tag" href="/Tags/Python">Python</a></span></span> 
+
+	
+	
+</span>
+
+					</div>
+
+					<div class="nowrap align-left">
+						 
+
+<a id="ctl00_ActionLinks_PrintLnk" href="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python?display=Print">
+	<img src="/App_Themes/CodeProject/Img/print.gif" 
+		width="46px" height="46px" style="border:0">
+</a>
+
+<a id="ctl00_ActionLinks_MailLink" href="/script/common/TellFriend.aspx?obtid=2&amp;obid=462525">
+	<img src="/App_Themes/CodeProject/Img/email.gif" 
+		width="46px" height="46px" style="border:0">
+</a>
+					</div>
+
+					
+				</div>
+
+				<div style="width:160px;margin: 10px auto;">
+					<div class="msg-160x600" data-format="160x600" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="ros"  data-tags='Python,rating4'></div>
+				</div>
+
+				
+<div class="padded-top">
+<div class="header">Top News</div>
+
+<p><a id="ctl00_News_News_ctl01_Link" href="http://mentalfloss.com/article/51674/history-ctrl-alt-delete">The History of CTRL + ALT + DELETE</a></p>
+
+Get the <a id="ctl00_News_News_ctl02_Subscribe" href="/Feature/Insider/">Insider News</a> free each morning.
+</div>
+
+				
+
+				<div class="padded-top">
+					
+	<div id="ctl00_RelatedVideos_RelatedResults_ctl00_header" class="header">Related Videos</div>
+	<div class="content-list" style="padding-left:11px">	
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedVideos_RelatedResults_ctl01_Link" class="title" href="http://codeproject.tv/video/4985806/switch_statements_workaround"><img id="ctl00_RelatedVideos_RelatedResults_ctl01_Thumbnail" src="https://codeprojecttv.s3.amazonaws.com/thumbnails_production/b/2265/thumb/python-Thumbnail.png" style="border-style:None;width:150px;border-width:0px;" /></a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedVideos_RelatedResults_ctl02_Link" class="title" href="http://codeproject.tv/video/5028341/get_vs_post_asp_net_mvc_part-3"><img id="ctl00_RelatedVideos_RelatedResults_ctl02_Thumbnail" src="https://codeprojecttv.s3.amazonaws.com/thumbnails_production/a/4599/thumb/Small3.jpg" style="border-style:None;width:150px;border-width:0px;" /></a>
+		
+	</div>
+	
+	</div>
+	
+
+				</div>
+				<div class="padded-top">
+					
+	<div id="ctl00_RelatedArticles_RelatedResults_ctl00_header" class="header">Related Articles</div>
+	<div class="content-list">	
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl01_Link" class="title" href="/Articles/26556/Power-of-Cplusplus-Developing-a-Portable-HTTP-Serv">Power of C++ - Developing a Portable HTTP Server with Python Interpreter using Boost, TinyXML</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl02_Link" class="title" href="/Articles/11843/Embedding-Python-in-C-Cplusplus-Part-II">Embedding Python in C/C++: Part II</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl03_Link" class="title" href="/Articles/173416/A-Simple-Telnet-Server-in-Python">A Simple Telnet Server in Python</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl04_Link" class="title" href="/Articles/57060/Web-Socket-Server">Web Socket Server</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl05_Link" class="title" href="/Articles/5498/TraceTool-12-4-The-Swiss-Army-Knife-of-Trace">TraceTool 12.4: The Swiss-Army Knife of Trace</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl07_Link" class="title" href="/Articles/53611/Embedding-IronPython-in-a-Csharp-Application">Embedding IronPython in a C# Application</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl08_Link" class="title" href="/Articles/21968/An-Introduction-to-Fit-and-Fitnesse">An Introduction to Fit and Fitnesse</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl09_Link" class="title" href="/Articles/1922/Beginning-Winsock-Programming-Multithreaded-TCP-se">Beginning Winsock Programming - Multithreaded TCP server with client</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl10_Link" class="title" href="/Articles/33141/Small-and-Reliable-Cplusplus-HTTP-Server-with-Comp">Small and Reliable C++ HTTP Server with Complete ASP.NET Support</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl11_Link" class="title" href="/Articles/66625/A-Fully-Featured-Windows-HTTP-Wrapper-in-Cplusplus">A Fully Featured Windows HTTP Wrapper in C++</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl12_Link" class="title" href="/Articles/1904/Beginning-Winsock-Programming-Simple-TCP-client">Beginning Winsock Programming - Simple TCP client</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl13_Link" class="title" href="/Articles/14791/NET-Remoting-with-an-easy-example">.NET Remoting with an easy example</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl14_Link" class="title" href="/Articles/12462/A-single-threaded-HTTP-server">A single-threaded HTTP server</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl15_Link" class="title" href="/Articles/83695/Iron-Web-Analyzer">Iron Web Analyzer</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl16_Link" class="title" href="/Articles/7409/Building-Smart-Client-using-NET">Building Smart Client using .NET</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl17_Link" class="title" href="/Articles/11642/Diary-Of-A-CEO-The-Really-Hard-Part">Diary Of A CEO - The Really Hard Part</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl18_Link" class="title" href="/Articles/43427/Silver-Draw-A-Silverlight-Based-Collaboration-Whit">Silver Draw - A Silverlight Based Collaboration White Board with Drawing and Chat</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl19_Link" class="title" href="/Articles/25511/Teach-Yourself-Django-in-24-Hours-Hour-2-Creating-">Teach Yourself Django in 24 Hours: Hour 2: Creating Your First Website</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl20_Link" class="title" href="/Articles/18873/Using-NET-and-PHP-to-create-an-extensible-WebDAV-s">Using .NET and PHP to create an extensible WebDAV server</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl21_Link" class="title" href="/Articles/34562/COMET-or-Reverse-AJAX-based-Grid-Control-for-ASP-N">COMET (or Reverse AJAX) based Grid Control for ASP.NET Web Applications - Scalable, High Performance and Low Latency Grid Control</a>
+		
+	</div>
+	
+	</div>
+	
+
+				</div>
+				<div class="padded-top">
+					
+				</div>
+
+				
+				
+			</div>
+		</td>
+		</tr></table>
+
+		
+		<div class="theme1-background" style="height:2px"></div>
+
+		<div class="extended tiny-text">
+			<div class="row">
+				<div class="float-left">
+					<a id="ctl00_PermaLink" itemprop="url" href="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python">Permalink</a> | 
+					<a id="ctl00_AdvertiseLink" href="http://developermedia.com/">Advertise </a> |
+					<a id="ctl00_PrivacyLink" href="/info/privacy.aspx">Privacy</a> |
+					<a id="ctl00_Mobile" rel="nofollow" href="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python?display=Mobile">Mobile</a>
+					<br />
+								
+					
+					Web03 |
+					2.6.130714.1 |
+					Last Updated 21 Sep 2012								
+				</div>
+				<div class="float-right align-right">
+					Article Copyright 2012 by Junian Triajianto<br />Everything else
+					Copyright &copy; <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2013 <br />
+					<a id="ctl00_TermsOfUseLink" href="/info/TermsOfUse.aspx">Terms of Use</a>
+				</div>
+
+				
+
+
+<div class="page-width">
+Layout: <a id="ctl00_PageWidth_FixedT" title="Fixed width layout" rel="nofollow" class=" active" href="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python?PageFlow=FixedWidth">fixed</a>
+|
+<a id="ctl00_PageWidth_FluidT" title="Fluid layout" rel="nofollow" href="/Articles/462525/Simple-HTTP-Server-and-Client-in-Python?PageFlow=Fluid">fluid</a>
+</div>
+
+
+
+			</div>
+		</div>
+		
+
+		<br clear="all" />
+		
+			
+
+	</div> 
+	</div>
+</div>
+
+
+<div style="display:none;" id="lqm_AdTable">
+	
+</div>
+
+
+<script type="text/javascript" language="Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script><script type='text/javascript'>//<![CDATA[
+if (typeof jQuery == 'undefined') {
+    document.write(unescape("%3Cscript src='/script/JS/jquery-1.6.2.min.js' type='text/javascript' %3E%3C/script%3E"));
+}//]]></script>
+<script type="text/javascript" language="Javascript" src="/script/Articles/JS/article.min.js?dt=2.6.130714.1"></script>
+<script type="text/javascript" language="Javascript" src="/script/JS/navbar.min.js?dt=2.6.130714.1"></script>
+<script type="text/javascript" language="Javascript" src="/script/Membership/JS/Notifications.min.js?dt=2.6.130714.1"></script>
+<script type="text/javascript" language="Javascript" src="/Script/Membership/JS/MemberProfilePopup.min.js?v=1.3"></script>
+<script type="text/javascript" language="Javascript">//<![CDATA[
+$(document).ready(function() { anchorAnimate(); });
+(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
+(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){ js=d.createElement(s);js.id=id; js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+var DMReportsOK = null;function showDMAlert() {   var $div = $('div.msg-728x90');  $div.append($('<img src="/images/alert-top-block.gif" style="right:0;position:absolute;z-index:0">'));}function onDMcallBack(event){   if (event.originalEvent) event = event.originalEvent;   jQuery.support.cors = true;   if (event.data == 'DM-disabled') DMReportsOK = false;   else if (event.data == 'DM-enabled') DMReportsOK = true;}function checkLoaded() {  var recordCheck  = false; var showBlockMsg = false; var block        = 'None'; if (!DMReportsOK && block == 'None' && typeof DMAds === 'undefined')     block = 'ResourceBlocked'; if (DMReportsOK === true) block = 'None'; else if (DMReportsOK === false) block = 'DomModified'; if (recordCheck) {  $.ajax({ url:'/script/AdServe/Ajax/VS.aspx',data:{'adbm':block}, cache:false, async:true }); } if (showBlockMsg && block != 'None')    showDMAlert();}$(document).ready(function() {  $(window).bind('message', onDMcallBack);  setTimeout(checkLoaded, 4000);});
+$(function ()
+                        {
+                        $('.oauth').click(function () {
+                            $this = $(this);
+                            href = $this.attr('href');
+                            var myWindow = window.open(href, 'popup',
+                                        'width=600,height=400,location=0,menubar=0,resizeable=0,scrollbars=0,toolbar=0');
+                            myWindow.focus();
+                            var timer = setInterval(function () {
+                                            if (myWindow.closed) {
+                                                clearInterval(timer);
+                                                // window.location.reload(); // May do a POST reload, shows a warning
+                                                window.location = window.location; // force a GET reload
+                                            }
+                                        }, 200);
+                            return false;
+                        });
+                    });
+var oSrchFlt = false, oSrchBox=false,srchBoxFoc=false;
+$(document).ready(function() {
+ if(InitWatermark)InitWatermark('sb_tb', 'Search for articles, questions, tips');
+ var sbar = $('#sb_tb'); 
+ var sfilter = $('#SearchFilter');
+ if (sbar && sfilter) {
+  sfilter.removeClass('popup'); sfilter.hide();
+  sbar.blur(function() {
+ if (!oSrchFlt)sfilter.hide();
+ srchBoxFoc=false;
+ /*sbar.animate( { width:'210px' }, { queue:false, duration:300 });
+*/ });
+  sbar.focus(function() {
+ oSrchFlt=false;srchBoxFoc=true;
+ sfilter.show();
+ /*sbar.animate( { width:'500px' }, { queue:false, duration:300 });
+*/ });
+  sbar.mouseleave(function() { oSrchBox=false; });
+  sbar.mouseover(function() { oSrchBox=true; });
+  sfilter.mouseleave(function() { oSrchFlt=false; if (!srchBoxFoc&&!oSrchBox)sfilter.hide();});
+  sfilter.mouseover(function() { oSrchFlt=true; });
+ }
+});
+$("#ctl00_RateArticle_RateItemWrapper").removeClass("container-rating");$('#clear-rate_ctl00_RateArticle_RCD').click(function () { $('#ctl00_RateArticle_RCD').hide(); return false;});
+function PostBack_ctl00_RateArticle_RateItemWrapper() {
+  return rateItem(462525,2,3,true,true,3,'LargeStars');
+}
+function ChkRtctl00_RateArticle(val, objId) {if (val<=3||true) {
+$('div[name=RateItem_' + objId + '] .rating-comment').css("display","");}
+else $('div[name=RateItem_' + objId + '] .rating-comment').css("display","none");}
+
+forumDir = '/script/Forums/';
+staticServer = '';
+allowReporting = false;
+allowRating = false;
+allowRatingDisplay = true;
+var smoothScroll = true;
+Selected        = -1;
+oldTitle        = document.title;
+minMessageScore = 1;
+minMessageScore = 5;
+abuseScore      = -2;
+spamScore       = -1;
+getRatingUrl    = '/script/Ratings/Ajax/GetRatings.aspx';
+noiseThreshold  = 3;
+getRatingRefKey = 'obrs';
+
+
+//]]>
+</script>
+
+
+
+</body>
+</html>
